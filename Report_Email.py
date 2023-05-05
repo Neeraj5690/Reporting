@@ -169,6 +169,7 @@ for user in range(0,len(UserKeys)):
 
         Email_Content="Good Evening !!!  Please don't forget to add report file for this week."
         FileLink="abc"
+
         html = '''
                     <html>
                         <body>
@@ -213,7 +214,7 @@ for user in range(0,len(UserKeys)):
 
         # ----------------------------SMTP setup--------------------------------
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        RandmStr = GoogleAppCode
+        RandmStr = "tsiajyfnhywxctwi"
         server.login(SenderEmail, RandmStr)
         # server.sendmail(email_from, email_to, email_string)
         print("Test Report sent")
