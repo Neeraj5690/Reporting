@@ -33,7 +33,7 @@ for user in range(0,len(UserKeys)):
     # print(User_Name[UserKeys[user]])
 
     try:
-        ExcelFileName = "ReportData1_Neeraj"
+        ExcelFileName = "ReportData/"+User_Name[UserKeys[user]]
 
         Report_Title="Report"
         Project_Name = "QA"
@@ -231,5 +231,6 @@ for user in range(0,len(UserKeys)):
 
         pdf.output(Report_Name)
 
-    except:
+    except Exception as aaa:
         print("Report File not found for "+UserKeys[user])
+        print(aaa)
