@@ -1,8 +1,6 @@
-import glob
 import os
 import smtplib
 import ssl
-import time
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -144,61 +142,9 @@ for user in range(0,len(UserKeys)):
             gfile.Upload()
             #--------------------------------------------------------------------------
 
-        #-----------------To delete pdf and report files----------------------------
-        time.sleep(2)
-        ii=0
-        fileList = glob.glob(home+'/.jenkins/workspace/CreateReport/*.pdf')
-        for ii in range(0,len(fileList)):
-            try:
-                os.remove(fileList[ii])
-            except Exception as ae:
-                print(ae)
-                print("No Attachment found to delete")
-        os.remove(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg')
-        #-----------------------------------------------------------------------
-
         sheetx.cell(row=1, column=5).value = date_str
         wbx.save(locx)
 
     except Exception as aaa:
         print(aaa)
         print(str(user) +" Report File not found for "+UserKeys[user])
-        Email_Content="Good Evening !!!  Please don't forget to add report file for this week."
-        FileLink="abc"
-
-        html = '''
-                    <html>
-                        <body>
-                            <p>Hi '''+UserKeys[user]+'''</p 
-                            <p>''' + Email_Content + '''<br /></p>
-                            <p>To know more how to add file to GitHub folder checkout the link given below <br /></p>
-                            <p>''' + "https://drive.google.com/drive/folders/" + FileLink + '''<br /><br /></p>
-                            <p>Many Thanks <br/>Neeraj</p>
-                        </body>
-                    </html>
-                    '''
-        email_from = 'Test Automation Team'
-        Email_From="neeraj1wayitsol@gmail.com"
-        Email_Subject="Weekly Report Reminder Email"
-
-        y = User_Name_Email[UserKeys[user]]
-        SenderEmail = Email_From
-        date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
-        msg = MIMEMultipart()
-        msg['Subject'] = Email_Subject + " " + date_str
-        msg['From'] = email_from
-        msg['To'] = y
-
-        msg.attach(MIMEText(html, "html"))
-
-        # ------------------------To attach all in e-Mail-----------------------
-        email_string = msg.as_string()
-        # -----------------------------------------------------------------------
-
-        # ----------------------------SMTP setup--------------------------------
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        RandmStr = "tsiajyfnhywxctwi"
-        server.login(SenderEmail, RandmStr)
-        #server.sendmail(email_from, y, email_string)
-        print("Test Report sent for "+UserKeys[user])
-        server.quit()
