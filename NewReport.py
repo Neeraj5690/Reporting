@@ -135,7 +135,7 @@ for user in range(0,len(UserKeys)):
         print("Bugs_CountList "+str(Bugs_CountList))
         print("Sum of Bugs_CountList "+str(sum(Bugs_CountList)))
         print("Bugs_Links are "+str(Bugs_Links))
-        print("Comment are "+str(Comment))
+        print("Comments are "+str(Comment))
 
         class PDF(FPDF):
             def header(self):
@@ -211,7 +211,8 @@ for user in range(0,len(UserKeys)):
                 self.cell(0, 1, version +"    Report Date: "+ctReportHeader, 0, 0, 'L')
                 try:
                     self.image(home+'.jenkins/workspace/Create_Graph/Neeraj_ModuleVsBugsCount.jpg', 100, 25, 100,90)
-                except:
+                except Exception as aa:
+                    print(aa)
                     self.image('img.jpg', 100, 25, 100, 90)
 
             def print_Data(self, num, Report_Title):
