@@ -168,13 +168,14 @@ for user in range(0,len(UserKeys)):
         print(aaa)
 
         Email_Content="Good Evening !!!  Please don't forget to add report file for this week."
+        FileLink="abc"
         html = '''
                     <html>
                         <body>
                             <p>Hi '''+UserKeys[user]+'''</p 
                             <p>''' + Email_Content + '''<br /></p>
                             <p>To know more how to add file to GitHub folder checkout the link given below <br /></p>
-                            <p>''' + "https://drive.google.com/drive/folders/" + GoogleDriveFolderID + '''<br /><br /></p>
+                            <p>''' + "https://drive.google.com/drive/folders/" + FileLink + '''<br /><br /></p>
                             <p>Many Thanks <br/>Neeraj</p>
                         </body>
                     </html>
