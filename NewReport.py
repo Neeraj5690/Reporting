@@ -11,6 +11,10 @@ print(home)
 
 version = " version: 1.0 "
 
+date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
+ct = datetime.datetime.now().strftime("%d_%B_%Y_%I_%M%p")
+ctReportHeader = datetime.datetime.now().strftime("%d %B %Y %I %M %p")
+
 ExcelFileName = "UserData"
 loc = (ExcelFileName + '.xlsx')
 wb = openpyxl.load_workbook(loc)
@@ -29,20 +33,16 @@ for x in range(2, 200):
 print(User_Name)
 UserKeys=list(User_Name.keys())
 print(UserKeys)
+
 for user in range(0,len(UserKeys)):
     # print(UserKeys[user])
     # print(User_Name[UserKeys[user]])
+    Report_Title = "Report"
+    Project_Name = "QA"
+    Report_Name = "Report"
 
     try:
         ExcelFileName = "ReportData/"+User_Name[UserKeys[user]]
-
-        Report_Title="Report"
-        Project_Name = "QA"
-        Report_Name = "Report"
-
-        date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
-        ct = datetime.datetime.now().strftime("%d_%B_%Y_%I_%M%p")
-        ctReportHeader = datetime.datetime.now().strftime("%d %B %Y %I %M %p")
 
         # Connecting with Main Report Data File
         locx = (ExcelFileName + '.xlsx')
@@ -236,3 +236,11 @@ for user in range(0,len(UserKeys)):
     except Exception as aaa:
         print("Report File not found for "+UserKeys[user])
         print(aaa)
+
+    Column_Name.clear()
+    ModuleName.clear()
+    Bugs_Count.clear()
+    Bugs_CountList.clear()
+    Bugs_Links.clear()
+    Comment.clear()
+    MaxBugs=None
