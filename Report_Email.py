@@ -7,13 +7,15 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import openpyxl
-import pandas as pd
 import ast
-import sys
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 import pandas as pd
+from pathlib import Path
 
+home = str(Path.home())
+home = home.replace(os.sep, '/')
+print(home)
 
 ExcelFileName = "UserData"
 loc = (ExcelFileName + '.xlsx')
@@ -27,23 +29,17 @@ for x in range(2, 200):
     if sheet.cell(x,1).value == None:
         break
     else:
-        print("User_Name : "+sheet.cell(x, 1).value)
-        print("User_File : "+sheet.cell(x, 2).value)
-        print("User_Email : " + sheet.cell(x, 3).value)
         User_Name_Sheet[sheet.cell(x, 1).value]=sheet.cell(x, 2).value
         User_Name_Email[sheet.cell(x, 1).value]=sheet.cell(x, 3).value
 
-print(User_Name_Sheet)
+#print(User_Name_Sheet)
 UserKeys=list(User_Name_Sheet.keys())
-print(UserKeys)
+#print(UserKeys)
 for user in range(0,len(UserKeys)):
-    # print(UserKeys[user])
-    # print(User_Name[UserKeys[user]])
-
     try:
         #-------------------To read content to send in e-Mail--------------------
         # Connecting with Main Report Data File
-        ExcelFileName = "ReportData1/"+User_Name_Sheet[UserKeys[user]]
+        ExcelFileName = "ReportData/"+User_Name_Sheet[UserKeys[user]]
         locx = (ExcelFileName + '.xlsx')
         wbx = openpyxl.load_workbook(locx)
 
@@ -90,6 +86,7 @@ for user in range(0,len(UserKeys)):
             </html>
             '''
 
+        Report_Name=home+'/.jenkins/workspace/CreateReport/'+UserKeys[user]+"_"+Report_Name
         def attach_file_to_email(msg, attach,Report_Name, extra_headers=None):
             with open(attach, "rb") as f:
                 file_attachment = MIMEApplication(f.read())
@@ -125,7 +122,7 @@ for user in range(0,len(UserKeys)):
         server=smtplib.SMTP_SSL('smtp.gmail.com',465)
         RandmStr=GoogleAppCode
         server.login(SenderEmail,RandmStr)
-        #server.sendmail(email_from, email_to, email_string)
+        server.sendmail(email_from, email_to, email_string)
         print("Test Report sent")
         server.quit()
         #--------------------------GDrive setup-----------------------------------
@@ -150,23 +147,22 @@ for user in range(0,len(UserKeys)):
         #-----------------To delete pdf and report files----------------------------
         time.sleep(2)
         ii=0
-        fileList = glob.glob('*.pdf')
+        fileList = glob.glob(home+'/.jenkins/workspace/CreateReport/*.pdf')
         for ii in range(0,len(fileList)):
             try:
                 os.remove(fileList[ii])
             except Exception as ae:
                 print(ae)
                 print("No Attachment found to delete")
-        os.remove("ModuleVsBugsCount.jpg")
+        os.remove(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg')
         #-----------------------------------------------------------------------
 
         sheetx.cell(row=1, column=5).value = date_str
         wbx.save(locx)
 
     except Exception as aaa:
-        print("Report File not found for "+UserKeys[user])
         print(aaa)
-
+        print(str(user) +" Report File not found for "+UserKeys[user])
         Email_Content="Good Evening !!!  Please don't forget to add report file for this week."
         FileLink="abc"
 
@@ -181,41 +177,28 @@ for user in range(0,len(UserKeys)):
                         </body>
                     </html>
                     '''
-        # def attach_file_to_email(msg, attach, Report_Name, extra_headers=None):
-        #     with open(attach, "rb") as f:
-        #         file_attachment = MIMEApplication(f.read())
-        #     file_attachment.add_header(
-        #         "Content-Disposition",
-        #         f"attachment; filename= {Report_Name}",
-        #     )
-        #     if extra_headers is not None:
-        #         for name, value in extra_headers.items():
-        #             file_attachment.add_header(name, value)
-        #     msg.attach(file_attachment)
-
-
         email_from = 'Test Automation Team'
+        Email_From="neeraj1wayitsol@gmail.com"
+        Email_Subject="Weekly Report Reminder Email"
+
         y = User_Name_Email[UserKeys[user]]
-        email_to = ast.literal_eval(y)
         SenderEmail = Email_From
         date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
         msg = MIMEMultipart()
         msg['Subject'] = Email_Subject + " " + date_str
         msg['From'] = email_from
-        msg['To'] = ','.join(email_to)
+        msg['To'] = y
+
         msg.attach(MIMEText(html, "html"))
 
-        # -----------------------------------------------------------------------
-
-        # # ------------------------To attach all in e-Mail-----------------------
-        # email_string = msg.as_string()
-        # context = ssl.create_default_context()
+        # ------------------------To attach all in e-Mail-----------------------
+        email_string = msg.as_string()
         # -----------------------------------------------------------------------
 
         # ----------------------------SMTP setup--------------------------------
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         RandmStr = "tsiajyfnhywxctwi"
         server.login(SenderEmail, RandmStr)
-        # server.sendmail(email_from, email_to, email_string)
-        print("Test Report sent")
+        #server.sendmail(email_from, y, email_string)
+        print("Test Report sent for "+UserKeys[user])
         server.quit()
