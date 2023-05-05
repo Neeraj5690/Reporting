@@ -212,7 +212,7 @@ for user in range(0,len(UserKeys)):
                 self.set_text_color(80, 80, 80)
                 self.cell(0, 1, version +"    Report Date: "+ctReportHeader, 0, 0, 'L')
                 try:
-                    self.image(home+'.jenkins/workspace/Create_Graph/Neeraj_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+                    self.image(home+'/.jenkins/workspace/Create_Graph/Neeraj_ModuleVsBugsCount.jpg', 100, 25, 100,90)
                 except Exception as aa:
                     print(aa)
                     self.image('img.jpg', 100, 25, 100, 90)
