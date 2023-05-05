@@ -11,7 +11,6 @@ print(home)
 
 version = " version: 1.0 "
 
-
 ExcelFileName = "UserData"
 loc = (ExcelFileName + '.xlsx')
 wb = openpyxl.load_workbook(loc)
