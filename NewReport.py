@@ -1,3 +1,4 @@
+import os
 import openpyxl
 from fpdf import FPDF, fpdf
 import datetime
@@ -5,6 +6,7 @@ import pandas as pd
 from pathlib import Path
 
 home = str(Path.home())
+home = home.replace(os.sep, '/')
 print(home)
 
 version = " version: 1.0 "
