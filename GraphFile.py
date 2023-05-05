@@ -25,7 +25,7 @@ for user in range(0,len(UserKeys)):
     # print(User_Name[UserKeys[user]])
 
     try:
-        ExcelFileName = User_Name[UserKeys[user]]
+        ExcelFileName = "ReportData/"+User_Name[UserKeys[user]]
         locx = (ExcelFileName + '.xlsx')
         wbx = openpyxl.load_workbook(locx)
 

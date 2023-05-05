@@ -181,7 +181,7 @@ class PDF(FPDF):
         self.set_text_color(80, 80, 80)
         self.cell(0, 1, version +"    Report Date: "+ctReportHeader, 0, 0, 'L')
         try:
-            self.image('C:/Users/Neeraj Kumar/.jenkins/workspace/Create_Graph/Neeraj_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+            self.image('.jenkins/workspace/Create_Graph/Neeraj_ModuleVsBugsCount.jpg', 100, 25, 100,90)
         except:
             self.image('img.jpg', 100, 25, 100, 90)
 
