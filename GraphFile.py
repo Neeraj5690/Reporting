@@ -21,8 +21,9 @@ print(User_Name)
 UserKeys=list(User_Name.keys())
 print(UserKeys)
 for user in range(0,len(UserKeys)):
-    # print(UserKeys[user])
-    # print(User_Name[UserKeys[user]])
+    Project_Name = "QA"
+    BarGraph_show = "No"
+    BarGraph_color = "blue"
 
     try:
         ExcelFileName = "ReportData/"+User_Name[UserKeys[user]]
@@ -31,10 +32,6 @@ for user in range(0,len(UserKeys)):
 
         Sheetname="GlobalData"
         sheetx = wbx[Sheetname]
-
-        Project_Name = ""
-        BarGraph_show = "No"
-        BarGraph_color = "blue"
 
         for ix in range(1, 200):
             if sheetx.cell(ix, 1).value == None:
@@ -116,3 +113,11 @@ for user in range(0,len(UserKeys)):
 
     except:
         print("Report File not found for "+UserKeys[user])
+
+    Column_Name.clear()
+    ModuleName.clear()
+
+    Bugs_Count.clear()
+    Bugs_CountList.clear()
+    ColumnNumber = 0
+    data.clear()
