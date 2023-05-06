@@ -35,7 +35,7 @@ for user in range(0,len(UserKeys)):
 time.sleep(2)
 ii=0
 fileList1 = glob.glob(home+'/.jenkins/workspace/CreateReport/*.pdf')
-fileList2 = glob.glob("ReportData1/"+'/*.xlsx')
+fileList2 = glob.glob("ReportData/"+'/*.xlsx')
 
 for ii in range(0,len(fileList1)):
     try:
