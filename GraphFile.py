@@ -20,10 +20,14 @@ for x in range(2, 200):
 print(User_Name)
 UserKeys=list(User_Name.keys())
 print(UserKeys)
+ModuleName=None
 for user in range(0,len(UserKeys)):
     Project_Name = "QA"
     BarGraph_show = "No"
     BarGraph_color = "blue"
+
+    print("---------------------------------------------------------")
+    print("ModuleName " + str(ModuleName))
 
     try:
         ExcelFileName = "ReportData/"+User_Name[UserKeys[user]]
@@ -82,14 +86,19 @@ for user in range(0,len(UserKeys)):
                         Bugs_Count[ModuleName[ix3-1]]=sheetx.cell(ix3+1, ColumnNumber).value
                         Bugs_CountList.append(sheetx.cell(ix3+1, ColumnNumber).value)
             print("Bugs_Count "+str(Bugs_Count))
-            print("Bugs_CountList "+str(Bugs_CountList))
 
             # Creating Module Vs Bugs Count Bar Graph
+            print("ModuleName "+str(ModuleName))
+            print("Bugs_CountList "+str(Bugs_CountList))
+            data={}
+            print(data)
             data = {'modules': ModuleName,
                 'bugs': Bugs_CountList
                 }
+            print(data)
             df = pd.DataFrame(data)
             colors = [BarGraph_color]
+            print(df)
             try:
                 plt.bar( df['modules'],df['bugs'], color=colors)
             except:
@@ -121,3 +130,5 @@ for user in range(0,len(UserKeys)):
     Bugs_CountList.clear()
     ColumnNumber = 0
     data.clear()
+    plt.close()
+    print("Cleared data "+ str(user)+" for user "+UserKeys[user])
