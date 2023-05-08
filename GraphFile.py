@@ -53,10 +53,16 @@ for user in range(0,len(UserKeys)):
                     BarGraph_show=sheetx.cell(ix, 2).value
                     print("BarGraph_show is "+BarGraph_show)
 
+        Column_Name = []
+        ModuleName = []
+        Bugs_Count = {}
+        Bugs_CountList = []
+        data = {}
+
         if BarGraph_show == "Yes":
             Sheetname="ModulesData"
             sheetx = wbx[Sheetname]
-            ModuleName=[]
+
             for ix1 in range(2, 200):
                 if sheetx.cell(ix1, 1).value == None:
                     break
@@ -64,7 +70,6 @@ for user in range(0,len(UserKeys)):
                     ModuleName.append(sheetx.cell(ix1, 1).value)
             print("ModuleName "+str(ModuleName))
 
-            Column_Name = []
             for ix2 in range(1, 20):
                 if sheetx.cell(1,ix2).value == None:
                     break
@@ -72,8 +77,7 @@ for user in range(0,len(UserKeys)):
                     Column_Name.append(sheetx.cell(1,ix2).value)
             print("Column_Name "+str(Column_Name))
 
-            Bugs_Count={}
-            Bugs_CountList=[]
+
             ColumnNumber=Column_Name.index("Bugs_Count")+1
             print("ColumnNumber: "+str(ColumnNumber))
             ifNothing=0
@@ -90,7 +94,7 @@ for user in range(0,len(UserKeys)):
             # Creating Module Vs Bugs Count Bar Graph
             print("ModuleName "+str(ModuleName))
             print("Bugs_CountList "+str(Bugs_CountList))
-            data={}
+
             print(data)
             data = {'modules': ModuleName,
                 'bugs': Bugs_CountList
