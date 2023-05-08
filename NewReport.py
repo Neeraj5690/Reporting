@@ -193,7 +193,8 @@ for user in range(0,len(UserKeys)):
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
                 X=10
-                OverallStatus="Average"
+                OverallStatus="Poor"
+
                 self.set_fill_color(224, 224, 224)
                 Y = Y + multplyVar
                 self.set_y(Y)
