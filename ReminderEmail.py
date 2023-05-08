@@ -41,7 +41,7 @@ for ix in range(1, 200):
                 print("GoogleAppCode is: "+sheetx.cell(ix, 2).value)
                 GoogleAppCode=sheetx.cell(ix, 2).value
         except Exception as ad:
-            print("No Data found "+ad)
+            print("No Data found "+str(ad))
 
 Sheetname="Data"
 sheet = wb[Sheetname]
