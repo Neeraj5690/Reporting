@@ -173,6 +173,9 @@ for user in range(0,len(UserKeys)):
                     if sheetx.cell(ix, 1).value == "GoogleAppCode_NoFile":
                         print("GoogleAppCode_NoFile is: " + sheetx.cell(ix, 2).value)
                         GoogleAppCode_NoFile = sheetx.cell(ix, 2).value
+                    if sheetx.cell(ix, 1).value == "CC_Email":
+                        print("CC_Email is: " + sheetx.cell(ix, 2).value)
+                        CC_Email = sheetx.cell(ix, 2).value
                 except Exception as ad:
                     print("No Data found " + str(ad))
         try:
@@ -193,7 +196,7 @@ for user in range(0,len(UserKeys)):
             msg['Subject'] = Email_Subject_NoFile + " " + date_str
             msg['From'] = email_from_NoFile
             msg['To'] = y
-
+            msg['CC'] = CC_Email
             msg.attach(MIMEText(html, "html"))
 
             # ------------------------To attach all in e-Mail-----------------------
