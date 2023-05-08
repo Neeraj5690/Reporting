@@ -267,7 +267,7 @@ for user in range(0,len(UserKeys)):
                     self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
                 except Exception as aa:
                     print(aa)
-                    self.image('img.jpg', 100, 25, 100, 90)
+                    self.image('img.png', 100, 25, 100, 90)
 
             def print_Data(self, num, Report_Title):
                 self.section_title(num, Report_Title)
