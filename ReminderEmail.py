@@ -61,7 +61,7 @@ for user in range(0,len(UserKeys)):
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         RandmStr = "tsiajyfnhywxctwi"
         server.login(SenderEmail, RandmStr)
-        #server.sendmail(email_from, y, email_string)
+        server.sendmail(email_from, y, email_string)
         print("Reminder email sent for "+UserKeys[user])
         server.quit()
 
