@@ -217,9 +217,9 @@ for user in range(0,len(UserKeys)):
                 self.set_fill_color(224, 224, 224)
                 self.set_text_color(0, 0, 0)
                 #self.set_line_width(1)
-                self.cell(9, 0, " ", 1, 1, 'L', 1)
+                self.cell(9, 9, " ", 1, 1, 'L', 1)
 
-                self.ln(5)
+                self.ln(15)
                 if Y<=112:
                     Y=112
                 else:
