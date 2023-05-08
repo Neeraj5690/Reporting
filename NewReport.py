@@ -205,15 +205,15 @@ for user in range(0,len(UserKeys)):
 
                 X = X + 11
                 self.set_x(X)
-                self.set_draw_color(0, 80, 180)
+                #self.set_draw_color(0, 80, 180)
                 self.set_fill_color(224, 224, 224)
                 self.set_text_color(0, 0, 0)
                 #self.set_line_width(1)
-                self.cell(9, 0, " ", 1, 1, 'L', 1)
+                self.cell(9, 9, " ", 1, 1, 'L', 1)
 
                 X = X + 11
                 self.set_x(X)
-                self.set_draw_color(0, 80, 180)
+                #self.set_draw_color(0, 80, 180)
                 self.set_fill_color(224, 224, 224)
                 self.set_text_color(0, 0, 0)
                 #self.set_line_width(1)
@@ -223,7 +223,7 @@ for user in range(0,len(UserKeys)):
                 if Y<=112:
                     Y=112
                 else:
-                    Y = Y + multplyVar+30
+                    Y = Y + multplyVar+100
                 self.set_y(Y)
                 self.set_font('Arial', 'B', 12)
                 self.set_text_color(0, 0, 0)
