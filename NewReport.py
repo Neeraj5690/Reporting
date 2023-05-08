@@ -192,7 +192,7 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Overall Status ") + 3
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
-                X=10
+                X=7
                 OverallStatus="Good"
                 OverallStatusText = "None"
 
@@ -226,11 +226,11 @@ for user in range(0,len(UserKeys)):
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
                 self.set_x(10)
-                Y = Y + 11
+                Y = Y + 12
                 self.set_y(Y)
                 self.set_font("Arial", size=8)
                 self.set_text_color(80, 90, 80)
-                self.cell(0, 0," ( "+OverallStatusText+" ) ", 0, 0, 'L')
+                self.cell(0, 0,"( "+OverallStatusText+" ) ", 0, 0, 'L')
 
                 self.ln(15)
                 print("Y is "+str(Y))
