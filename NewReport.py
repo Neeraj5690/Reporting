@@ -186,14 +186,14 @@ for user in range(0,len(UserKeys)):
                 Y = Y + multplyVar
                 self.set_y(Y)
                 self.set_draw_color(0, 80, 180)
-                self.set_fill_color(231, 203, 149)
-                self.set_text_color(0, 0, 0)
+                self.set_fill_color(0, 76, 153)
+                self.set_text_color(255, 255, 255)
                 self.set_line_width(1)
                 w2 = self.get_string_width(" Overall Status ") + 3
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
                 X=10
-                OverallStatus="Good"
+                OverallStatus="Average"
                 self.set_fill_color(224, 224, 224)
 
                 Y = Y + multplyVar
@@ -221,8 +221,8 @@ for user in range(0,len(UserKeys)):
 
                 self.ln(15)
                 print("Y is "+str(Y))
-                if Y<=130:
-                    Y=130
+                if Y<=120:
+                    Y=120
                 else:
                     Y = Y + multplyVar+15
                 self.set_y(Y)
@@ -246,7 +246,7 @@ for user in range(0,len(UserKeys)):
 
             def Graph(self):
                 self.set_font("Arial", size=8)
-                self.set_text_color(80, 80, 80)
+                self.set_text_color(80, 90, 80)
                 self.cell(0, 1, version +"    Report Date: "+ctReportHeader, 0, 0, 'L')
                 try:
                     self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
