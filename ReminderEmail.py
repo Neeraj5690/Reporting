@@ -1,4 +1,3 @@
-from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import openpyxl
@@ -7,10 +6,38 @@ import smtplib
 
 Email_Content="Good Evening !!!  Please don't forget to add report file for this week."
 FileLink="abc"
+email_from = 'Test Automation Team'
+Email_From="neeraj1wayitsol@gmail.com"
+Email_Subject="Weekly Report Reminder Email"
 
 ExcelFileName = "UserData"
 loc = (ExcelFileName + '.xlsx')
 wb = openpyxl.load_workbook(loc)
+
+Sheetname="General"
+sheetx = wb[Sheetname]
+for ix in range(1, 200):
+    if sheetx.cell(ix, 1).value == None:
+        break
+    else:
+        if sheetx.cell(ix, 1).value == "Email_Content":
+            print("Email_Content is: "+sheetx.cell(ix, 2).value)
+            Email_Content=sheetx.cell(ix, 2).value
+        if sheetx.cell(ix, 1).value == "FileLink":
+            print("FileLink is: "+sheetx.cell(ix, 2).value)
+            FileLink=sheetx.cell(ix, 2).value
+        if sheetx.cell(ix, 1).value == "email_from":
+            print("email_from is: "+sheetx.cell(ix, 2).value)
+            email_from=sheetx.cell(ix, 2).value
+        if sheetx.cell(ix, 1).value == "Email_From":
+            print("Email_From is: "+sheetx.cell(ix, 2).value)
+            Email_From=sheetx.cell(ix, 2).value
+        if sheetx.cell(ix, 1).value == "Email_Subject":
+            print("Email_Subject is: "+sheetx.cell(ix, 2).value)
+            Email_Subject=sheetx.cell(ix, 2).value
+        if sheetx.cell(ix, 1).value == "GoogleAppCode":
+            print("GoogleAppCode is: "+sheetx.cell(ix, 2).value)
+            GoogleAppCode=sheetx.cell(ix, 2).value
 
 Sheetname="Data"
 sheet = wb[Sheetname]
@@ -39,9 +66,6 @@ for user in range(0,len(UserKeys)):
                         </body>
                     </html>
                     '''
-        email_from = 'Test Automation Team'
-        Email_From="neeraj1wayitsol@gmail.com"
-        Email_Subject="Weekly Report Reminder Email"
 
         y = User_Name_Email[UserKeys[user]]
         SenderEmail = Email_From
@@ -59,7 +83,7 @@ for user in range(0,len(UserKeys)):
 
         # ----------------------------SMTP setup--------------------------------
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        RandmStr = "tsiajyfnhywxctwi"
+        RandmStr = GoogleAppCode
         server.login(SenderEmail, RandmStr)
         server.sendmail(email_from, y, email_string)
         print("Reminder email sent for "+UserKeys[user])
