@@ -142,15 +142,15 @@ for user in range(0,len(UserKeys)):
             def header(self):
                 self.image('Logo.png', 10, 8, 33)
                 self.set_font('Arial', 'B', 15)
+                self.set_y(15)
                 w = self.get_string_width(Report_Title+": "+Project_Name) + 6
                 self.set_x((210 - w) / 2)
                 self.set_draw_color(0, 80, 180)
                 self.set_fill_color(0,76,153)
                 self.set_text_color(255,255,255)
                 self.set_line_width(1)
-                self.set_y(15)
                 self.cell(w, 9, Report_Title+": "+Project_Name, 1, 1, 'C', 1)
-                self.ln(10)
+                self.ln(5)
 
             def footer(self):
                 self.set_y(-15)
