@@ -8,7 +8,6 @@ import smtplib
 Email_Content="Good Evening !!!  Please don't forget to add report file for this week."
 FileLink="abc"
 
-
 ExcelFileName = "UserData"
 loc = (ExcelFileName + '.xlsx')
 wb = openpyxl.load_workbook(loc)
