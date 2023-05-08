@@ -1,6 +1,16 @@
 import matplotlib.pyplot as plt
 import openpyxl
 import pandas as pd
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+
+Email_Content_NoFile="Good Evening !!!  You have missed to share report file for this week."
+FileLink_NoFile="abc"
+email_from_NoFile = 'Test Automation Team'
+Email_From_NoFile="neeraj1wayitsol@gmail.com"
+Email_Subject_NoFile="Weekly Report Not Sent"
+GoogleAppCode_NoFile="tsiajyfnhywxctwi"
 
 ExcelFileName = "UserData"
 loc = (ExcelFileName + '.xlsx')
@@ -9,6 +19,7 @@ wb = openpyxl.load_workbook(loc)
 Sheetname="Data"
 sheet = wb[Sheetname]
 User_Name={}
+User_Name_Email={}
 for x in range(2, 200):
     if sheet.cell(x,1).value == None:
         break
@@ -16,6 +27,7 @@ for x in range(2, 200):
         print("User_Name : "+sheet.cell(x, 1).value)
         print("User_File : "+sheet.cell(x, 2).value)
         User_Name[sheet.cell(x, 1).value]=sheet.cell(x, 2).value
+        User_Name_Email[sheet.cell(x, 1).value]=sheet.cell(x, 3).value
 
 print(User_Name)
 UserKeys=list(User_Name.keys())
@@ -135,4 +147,67 @@ for user in range(0,len(UserKeys)):
 
     except:
         print("Report File not found for "+UserKeys[user])
+
+        ExcelFileName = "UserData"
+        loc = (ExcelFileName + '.xlsx')
+        wb = openpyxl.load_workbook(loc)
+        Sheetname = "General"
+        sheetx = wb[Sheetname]
+        for ix in range(1, 200):
+            if sheetx.cell(ix, 1).value == None:
+                break
+            else:
+                try:
+                    if sheetx.cell(ix, 1).value == "Email_Content_NoFile":
+                        print("Email_Content_NoFile is: " + sheetx.cell(ix, 2).value)
+                        Email_Content_NoFile = sheetx.cell(ix, 2).value
+                    if sheetx.cell(ix, 1).value == "email_from_NoFile":
+                        print("email_from_NoFile is: " + sheetx.cell(ix, 2).value)
+                        email_from_NoFile = sheetx.cell(ix, 2).value
+                    if sheetx.cell(ix, 1).value == "Email_From_NoFile":
+                        print("Email_From_NoFile is: " + sheetx.cell(ix, 2).value)
+                        Email_From_NoFile = sheetx.cell(ix, 2).value
+                    if sheetx.cell(ix, 1).value == "Email_Subject_NoFile":
+                        print("Email_Subject_NoFile is: " + sheetx.cell(ix, 2).value)
+                        Email_Subject_NoFile = sheetx.cell(ix, 2).value
+                    if sheetx.cell(ix, 1).value == "GoogleAppCode_NoFile":
+                        print("GoogleAppCode_NoFile is: " + sheetx.cell(ix, 2).value)
+                        GoogleAppCode_NoFile = sheetx.cell(ix, 2).value
+                except Exception as ad:
+                    print("No Data found " + str(ad))
+        try:
+            html = '''
+                        <html>
+                            <body>
+                                <p>Hi ''' + UserKeys[user] + '''</p 
+                                <p>''' + Email_Content_NoFile + '''<br /><br /></p>
+                                <p>Many Thanks <br/>BIG QA Manager</p>
+                            </body>
+                        </html>
+                        '''
+
+            y = User_Name_Email[UserKeys[user]]
+            SenderEmail = Email_From_NoFile
+            date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
+            msg = MIMEMultipart()
+            msg['Subject'] = Email_Subject_NoFile + " " + date_str
+            msg['From'] = email_from_NoFile
+            msg['To'] = y
+
+            msg.attach(MIMEText(html, "html"))
+
+            # ------------------------To attach all in e-Mail-----------------------
+            email_string = msg.as_string()
+            # -----------------------------------------------------------------------
+
+            # ----------------------------SMTP setup--------------------------------
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            RandmStr = GoogleAppCode_NoFile
+            server.login(SenderEmail, RandmStr)
+            server.sendmail(email_from_NoFile, y, email_string)
+            print("No Report email sent for " + UserKeys[user])
+            server.quit()
+
+        except:
+            print("Email not sent for " + UserKeys[user])
 
