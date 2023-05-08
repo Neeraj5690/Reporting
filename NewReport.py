@@ -225,9 +225,12 @@ for user in range(0,len(UserKeys)):
                 self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
+                self.set_x(10)
+                Y = Y + multplyVar
+                self.set_y(Y)
                 self.set_font("Arial", size=8)
                 self.set_text_color(80, 90, 80)
-                self.cell(0, 1, version + " ( "+OverallStatusText+" ) ", 0, 0, 'L')
+                self.cell(0, 1," ( "+OverallStatusText+" ) ", 0, 0, 'L')
 
                 self.ln(15)
                 print("Y is "+str(Y))
