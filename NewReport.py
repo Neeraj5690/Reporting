@@ -149,7 +149,7 @@ for user in range(0,len(UserKeys)):
                 self.set_fill_color(0,76,153)
                 self.set_text_color(255,255,255)
                 self.set_line_width(1)
-                self.cell(w, 9, Report_Title+": "+Project_Name, 1, 1, 'C', 1)
+                self.cell(w, 10, Report_Title+": "+Project_Name, 1, 1, 'C', 1)
                 self.ln(5)
 
             def footer(self):
@@ -186,7 +186,7 @@ for user in range(0,len(UserKeys)):
                 if Y<=112:
                     Y=112
                 else:
-                    Y = Y + multplyVar+16
+                    Y = Y + multplyVar+20
                 self.set_y(Y)
                 self.set_font('Arial', 'B', 12)
                 self.set_text_color(0, 0, 0)
