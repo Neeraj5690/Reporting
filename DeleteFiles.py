@@ -64,8 +64,6 @@ for ix in range(1, 200):
             print("Git_Token is: "+sheetx.cell(ix, 2).value)
             Git_Token=sheetx.cell(ix, 2).value
 
-print(User_Name_Sheet)
-
 g = Github(Git_Username, Git_Password)
 g = Github(Git_Token)
 
@@ -80,4 +78,4 @@ Folder=repo.get_contents("/ReportData")
 for contentFiles in Folder:
     print(contentFiles)
 
-    repo.delete_file(contentFiles.path, "message", contentFiles.sha, branch='master')
+    #repo.delete_file(contentFiles.path, "message", contentFiles.sha, branch='master')
