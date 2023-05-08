@@ -123,16 +123,16 @@ for user in range(0,len(UserKeys)):
 
         else:
             print("BarGraph_show is " +BarGraph_show)
+        Column_Name.clear()
+        ModuleName.clear()
+
+        Bugs_Count.clear()
+        Bugs_CountList.clear()
+        ColumnNumber = 0
+        data.clear()
+        plt.close()
+        print("Cleared data " + str(user) + " for user " + UserKeys[user])
 
     except:
         print("Report File not found for "+UserKeys[user])
 
-    Column_Name.clear()
-    ModuleName.clear()
-
-    Bugs_Count.clear()
-    Bugs_CountList.clear()
-    ColumnNumber = 0
-    data.clear()
-    plt.close()
-    print("Cleared data "+ str(user)+" for user "+UserKeys[user])

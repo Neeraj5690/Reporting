@@ -285,16 +285,16 @@ for user in range(0,len(UserKeys)):
             pdf.print_Data(ix, ModuleName[ix-1])
 
         pdf.output(UserKeys[user]+"_"+Report_Name)
+        Column_Name.clear()
+        ModuleName.clear()
+        Bugs_Count.clear()
+        Bugs_CountList.clear()
+        Bugs_Links.clear()
+        Comment.clear()
+        Project_Status = None
+        MaxBugs = None
 
     except Exception as aaa:
         print("Report File not found for "+UserKeys[user])
         print(aaa)
 
-    Column_Name.clear()
-    ModuleName.clear()
-    Bugs_Count.clear()
-    Bugs_CountList.clear()
-    Bugs_Links.clear()
-    Comment.clear()
-    Project_Status=None
-    MaxBugs=None
