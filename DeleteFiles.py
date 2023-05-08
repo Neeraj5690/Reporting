@@ -65,6 +65,19 @@ for ix in range(1, 200):
             Git_Token=sheetx.cell(ix, 2).value
 
 g = Github(Git_Username, Git_Password)
+
+ExcelFileName = "GitAccessToken"
+loc = (home+"/"+ExcelFileName + '.xlsx')
+wb = openpyxl.load_workbook(loc)
+Sheetname="Cred"
+sheetx = wb[Sheetname]
+for ix in range(1, 200):
+    if sheetx.cell(ix, 1).value == None:
+        break
+    else:
+        if sheetx.cell(ix, 1).value == "Git_Token":
+            print("Git_Token is: "+sheetx.cell(ix, 2).value)
+            Git_Token=sheetx.cell(ix, 2).value
 g = Github(Git_Token)
 
 #  Get all repos present
