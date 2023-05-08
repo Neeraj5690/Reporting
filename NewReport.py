@@ -192,12 +192,12 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Overall Status ") + 3
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
-                X=7
+                X=10
                 OverallStatus="Good"
                 OverallStatusText = "None"
 
                 self.set_fill_color(224, 224, 224)
-                Y = Y + multplyVar
+                Y = Y + 10
                 self.set_y(Y)
                 self.set_x(X)
                 self.set_draw_color(0, 80, 180)
