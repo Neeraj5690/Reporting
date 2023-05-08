@@ -183,7 +183,7 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Max bugs from : "+MaxBugs) + 3
                 self.cell(w2, 9, " Max bugs from : "+MaxBugs, 1, 1, 'L', 1)
 
-                Y = Y + multplyVar+15
+                Y = Y + multplyVar+17
                 self.set_y(Y)
                 self.set_draw_color(0, 80, 180)
                 self.set_fill_color(0, 76, 153)
@@ -192,12 +192,12 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Overall Status ") + 3
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
-                X=10
+                X=9
                 OverallStatus="Good"
                 OverallStatusText = "None"
 
                 self.set_fill_color(224, 224, 224)
-                Y = Y + 10
+                Y = Y + 11
                 self.set_y(Y)
                 self.set_x(X)
                 self.set_draw_color(0, 80, 180)
