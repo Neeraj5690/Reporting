@@ -195,7 +195,7 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Overall Status ") + 3
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
-                X=9
+                X=10
                 OverallStatusText = "None"
 
                 self.set_fill_color(224, 224, 224)
