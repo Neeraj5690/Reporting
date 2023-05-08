@@ -194,6 +194,7 @@ for user in range(0,len(UserKeys)):
 
                 X=10
                 OverallStatus="Poor"
+                OverallStatusText = "None"
 
                 self.set_fill_color(224, 224, 224)
                 Y = Y + multplyVar
@@ -202,6 +203,7 @@ for user in range(0,len(UserKeys)):
                 self.set_draw_color(0, 80, 180)
                 if OverallStatus == "Poor":
                     self.set_fill_color(255, 51, 51)
+                    OverallStatusText = "Poor"
                 self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
@@ -210,6 +212,7 @@ for user in range(0,len(UserKeys)):
                 self.set_x(X)
                 if OverallStatus == "Average":
                     self.set_fill_color(255, 153, 51)
+                    OverallStatusText = "Average"
                 self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
@@ -218,8 +221,13 @@ for user in range(0,len(UserKeys)):
                 self.set_x(X)
                 if OverallStatus == "Good":
                     self.set_fill_color(0, 204, 0)
+                    OverallStatusText = "Good"
                 self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
+
+                self.set_font("Arial", size=8)
+                self.set_text_color(80, 90, 80)
+                self.cell(0, 1, version + " ( "+OverallStatusText+" ) ", 0, 0, 'L')
 
                 self.ln(15)
                 print("Y is "+str(Y))
