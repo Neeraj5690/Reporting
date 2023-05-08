@@ -194,36 +194,35 @@ for user in range(0,len(UserKeys)):
 
                 X=10
                 OverallStatus="Good"
+                self.set_fill_color(224, 224, 224)
 
                 Y = Y + multplyVar
                 self.set_y(Y)
                 self.set_x(X)
                 self.set_draw_color(0, 80, 180)
-                self.set_fill_color(224, 224, 224)
+                if OverallStatus == "Poor":
+                    self.set_fill_color(255, 51, 51)
                 self.set_text_color(0, 0, 0)
-                #self.set_line_width(1)
-                self.cell(9, 9, " ", 1, 1, 'L', 1)
-
-                X = X + 11
-                self.set_x(X)
-                #self.set_draw_color(0, 80, 180)
-                self.set_fill_color(224, 224, 224)
-                self.set_text_color(0, 0, 0)
-                #self.set_line_width(1)
                 self.cell(9, 9, " ", 1, 0, 'L', 1)
 
                 X = X + 11
                 self.set_x(X)
-                #self.set_draw_color(0, 80, 180)
-                self.set_fill_color(224, 224, 224)
+                if OverallStatus == "Average":
+                    self.set_fill_color(255, 153, 51)
                 self.set_text_color(0, 0, 0)
-                #self.set_line_width(1)
+                self.cell(9, 9, " ", 1, 0, 'L', 1)
+
+                X = X + 11
+                self.set_x(X)
+                if OverallStatus == "Good":
+                    self.set_fill_color(0, 204, 0)
+                self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 1, 0, 'L', 1)
 
                 self.ln(15)
                 print("Y is "+str(Y))
-                if Y<=112:
-                    Y=120
+                if Y<=130:
+                    Y=130
                 else:
                     Y = Y + multplyVar+15
                 self.set_y(Y)
