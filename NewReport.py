@@ -142,7 +142,7 @@ for user in range(0,len(UserKeys)):
             def header(self):
                 self.image('Logo.png', 10, 8, 33)
                 self.set_font('Arial', 'B', 15)
-                self.set_y(15)
+                self.set_y(16)
                 w = self.get_string_width(Report_Title+": "+Project_Name) + 6
                 self.set_x((210 - w) / 2)
                 self.set_draw_color(0, 80, 180)
@@ -186,9 +186,8 @@ for user in range(0,len(UserKeys)):
                 if Y<=112:
                     Y=112
                 else:
-                    Y = Y + multplyVar+15
+                    Y = Y + multplyVar+16
                 self.set_y(Y)
-                #self.ln(49)
                 self.set_font('Arial', 'B', 12)
                 self.set_text_color(0, 0, 0)
                 self.set_fill_color(200, 220, 255)
