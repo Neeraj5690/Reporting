@@ -183,6 +183,15 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Max bugs from : "+MaxBugs) + 3
                 self.cell(w2, 9, " Max bugs from : "+MaxBugs, 1, 1, 'L', 1)
 
+                Y = Y + multplyVar
+                self.set_y(Y)
+                self.set_draw_color(0, 80, 180)
+                self.set_fill_color(231, 203, 149)
+                self.set_text_color(0, 0, 0)
+                self.set_line_width(1)
+                w2 = self.get_string_width(" Overall Status ") + 3
+                self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
+
                 if Y<=112:
                     Y=112
                 else:
