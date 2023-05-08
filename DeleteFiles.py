@@ -45,3 +45,39 @@ for ii in range(0,len(fileList1)):
         print(ae)
         print("No Attachment found to delete")
 
+# Deleting Report files from Git Report folder
+from github import Github
+
+Sheetname="Cred"
+sheetx = wb[Sheetname]
+for ix in range(1, 200):
+    if sheetx.cell(ix, 1).value == None:
+        break
+    else:
+        if sheetx.cell(ix, 1).value == "Git_Username":
+            print("Git_Username is: "+sheetx.cell(ix, 2).value)
+            Git_Username=sheetx.cell(ix, 2).value
+        if sheetx.cell(ix, 1).value == "Git_Password":
+            print("Git_Password is: "+sheetx.cell(ix, 2).value)
+            Git_Password=sheetx.cell(ix, 2).value
+        if sheetx.cell(ix, 1).value == "Git_Token":
+            print("Git_Token is: "+sheetx.cell(ix, 2).value)
+            Git_Token=sheetx.cell(ix, 2).value
+
+print(User_Name_Sheet)
+
+g = Github(Git_Username, Git_Password)
+g = Github(Git_Token)
+
+#  Get all repos present
+for repo in g.get_user().get_repos():
+    print(repo.name)
+
+# Accessing particular Repo and its folder
+repo=g.get_repo("Neeraj5690/Reporting")
+# Removing files from the folder
+Folder=repo.get_contents("/ReportData")
+for contentFiles in Folder:
+    print(contentFiles)
+
+    repo.delete_file(contentFiles.path, "message", contentFiles.sha, branch='master')
