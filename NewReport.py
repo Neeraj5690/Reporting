@@ -192,7 +192,7 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Overall Status ") + 3
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
-                X=9
+                X=10
                 OverallStatus="Good"
                 Y = Y + multplyVar
                 self.set_y(Y)
@@ -200,7 +200,7 @@ for user in range(0,len(UserKeys)):
                 self.set_draw_color(0, 80, 180)
                 self.set_fill_color(224, 224, 224)
                 self.set_text_color(0, 0, 0)
-                self.set_line_width(1)
+                #self.set_line_width(1)
                 self.cell(9, 9, " ", 1, 1, 'L', 1)
 
                 X = X + 11
@@ -208,7 +208,7 @@ for user in range(0,len(UserKeys)):
                 self.set_draw_color(0, 80, 180)
                 self.set_fill_color(224, 224, 224)
                 self.set_text_color(0, 0, 0)
-                self.set_line_width(1)
+                #self.set_line_width(1)
                 self.cell(9, 9, " ", 1, 1, 'L', 1)
 
                 X = X + 11
@@ -216,7 +216,7 @@ for user in range(0,len(UserKeys)):
                 self.set_draw_color(0, 80, 180)
                 self.set_fill_color(224, 224, 224)
                 self.set_text_color(0, 0, 0)
-                self.set_line_width(1)
+                #self.set_line_width(1)
                 self.cell(9, 9, " ", 1, 1, 'L', 1)
 
                 if Y<=112:
