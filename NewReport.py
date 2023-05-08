@@ -64,6 +64,9 @@ for user in range(0,len(UserKeys)):
                 if sheetx.cell(ix, 1).value == "Report_Name":
                     print("Report_Name is: "+sheetx.cell(ix, 2).value)
                     Report_Name=sheetx.cell(ix, 2).value+'_'+date_str+'.pdf'
+                if sheetx.cell(ix, 1).value == "Project_Status":
+                    print("Project_Status is: "+sheetx.cell(ix, 2).value)
+                    Project_Status=sheetx.cell(ix, 2).value
 
         # Reading Column Name data
         Sheetname="ModulesData"
@@ -193,7 +196,6 @@ for user in range(0,len(UserKeys)):
                 self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
 
                 X=9
-                OverallStatus="Good"
                 OverallStatusText = "None"
 
                 self.set_fill_color(224, 224, 224)
@@ -201,27 +203,27 @@ for user in range(0,len(UserKeys)):
                 self.set_y(Y)
                 self.set_x(X)
                 self.set_draw_color(0, 80, 180)
-                if OverallStatus == "Poor":
+                if Project_Status == "Off Track":
                     self.set_fill_color(255, 51, 51)
-                    OverallStatusText = "Poor"
+                    OverallStatusText = Project_Status
                 self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
                 self.set_fill_color(224, 224, 224)
                 X = X + 11
                 self.set_x(X)
-                if OverallStatus == "Average":
+                if Project_Status == "Concerned":
                     self.set_fill_color(255, 153, 51)
-                    OverallStatusText = "Average"
+                    OverallStatusText = Project_Status
                 self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
                 self.set_fill_color(224, 224, 224)
                 X = X + 11
                 self.set_x(X)
-                if OverallStatus == "Good":
+                if Project_Status == "On Track":
                     self.set_fill_color(0, 204, 0)
-                    OverallStatusText = "Good"
+                    OverallStatusText = Project_Status
                 self.set_text_color(0, 0, 0)
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
@@ -294,4 +296,5 @@ for user in range(0,len(UserKeys)):
     Bugs_CountList.clear()
     Bugs_Links.clear()
     Comment.clear()
+    Project_Status=None
     MaxBugs=None
