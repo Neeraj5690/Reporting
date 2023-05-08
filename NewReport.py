@@ -183,7 +183,7 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Max bugs from : "+MaxBugs) + 3
                 self.cell(w2, 9, " Max bugs from : "+MaxBugs, 1, 1, 'L', 1)
 
-                Y = Y + multplyVar+10
+                Y = Y + multplyVar+15
                 self.set_y(Y)
                 self.set_draw_color(0, 80, 180)
                 self.set_fill_color(0, 76, 153)
@@ -226,7 +226,7 @@ for user in range(0,len(UserKeys)):
                 self.cell(9, 9, " ", 0, 0, 'L', 1)
 
                 self.set_x(10)
-                Y = Y + 10
+                Y = Y + 11
                 self.set_y(Y)
                 self.set_font("Arial", size=8)
                 self.set_text_color(80, 90, 80)
