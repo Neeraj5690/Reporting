@@ -148,6 +148,7 @@ for user in range(0,len(UserKeys)):
                 self.set_fill_color(0,76,153)
                 self.set_text_color(255,255,255)
                 self.set_line_width(1)
+                self.set_y(15)
                 self.cell(w, 9, Report_Title+": "+Project_Name, 1, 1, 'C', 1)
                 self.ln(10)
 
