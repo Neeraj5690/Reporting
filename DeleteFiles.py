@@ -77,5 +77,7 @@ repo=g.get_repo("Neeraj5690/Reporting")
 Folder=repo.get_contents("/ReportData")
 for contentFiles in Folder:
     print(contentFiles)
-
-    #repo.delete_file(contentFiles.path, "message", contentFiles.sha, branch='master')
+    if contentFiles.path.format() == "ReportData/img.png":
+        pass
+    else:
+        repo.delete_file(contentFiles.path, "message", contentFiles.sha, branch='master')
