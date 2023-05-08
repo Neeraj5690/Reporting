@@ -195,7 +195,6 @@ for user in range(0,len(UserKeys)):
                 X=10
                 OverallStatus="Average"
                 self.set_fill_color(224, 224, 224)
-
                 Y = Y + multplyVar
                 self.set_y(Y)
                 self.set_x(X)
@@ -203,21 +202,23 @@ for user in range(0,len(UserKeys)):
                 if OverallStatus == "Poor":
                     self.set_fill_color(255, 51, 51)
                 self.set_text_color(0, 0, 0)
-                self.cell(9, 9, " ", 1, 0, 'L', 1)
+                self.cell(9, 9, " ", 0, 0, 'L', 1)
 
+                self.set_fill_color(224, 224, 224)
                 X = X + 11
                 self.set_x(X)
                 if OverallStatus == "Average":
                     self.set_fill_color(255, 153, 51)
                 self.set_text_color(0, 0, 0)
-                self.cell(9, 9, " ", 1, 0, 'L', 1)
+                self.cell(9, 9, " ", 0, 0, 'L', 1)
 
+                self.set_fill_color(224, 224, 224)
                 X = X + 11
                 self.set_x(X)
                 if OverallStatus == "Good":
                     self.set_fill_color(0, 204, 0)
                 self.set_text_color(0, 0, 0)
-                self.cell(9, 9, " ", 1, 0, 'L', 1)
+                self.cell(9, 9, " ", 0, 0, 'L', 1)
 
                 self.ln(15)
                 print("Y is "+str(Y))

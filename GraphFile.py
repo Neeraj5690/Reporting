@@ -111,7 +111,7 @@ for user in range(0,len(UserKeys)):
             ax.set_xticklabels(df['modules'] , rotation = 55,fontsize=8)
 
             plt.title('Module Vs Bugs Count', fontsize=10)
-            plt.xlabel('Modules', fontsize=8)
+            #plt.xlabel('Modules', fontsize=8)
             plt.ylabel('Bugs', fontsize=8)
             plt.grid(False)
             plt.gcf().set_size_inches(5, 7)
