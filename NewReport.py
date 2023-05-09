@@ -67,6 +67,9 @@ for user in range(0,len(UserKeys)):
                 if sheetx.cell(ix, 1).value == "Project_Status":
                     print("Project_Status is: "+sheetx.cell(ix, 2).value)
                     Project_Status=sheetx.cell(ix, 2).value
+                if sheetx.cell(ix, 1).value == "BarGraph_show":
+                    print("BarGraph_show is: "+sheetx.cell(ix, 2).value)
+                    BarGraph_show=sheetx.cell(ix, 2).value
 
         # Reading Column Name data
         Sheetname="ModulesData"
@@ -186,16 +189,23 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Max bugs from : "+MaxBugs) + 3
                 self.cell(w2, 9, " Max bugs from : "+MaxBugs, 1, 1, 'L', 1)
 
-                Y = Y + multplyVar+17
-                self.set_y(Y)
+                if BarGraph_show=="Yes":
+                    Y = Y + multplyVar+17
+                    self.set_y(Y)
+                    X = 10
+                elif BarGraph_show=="No":
+                    X = 120
+                    Y=35
+                    self.set_x(X)
+                    self.set_y(Y)
                 self.set_draw_color(0, 80, 180)
                 self.set_fill_color(0, 76, 153)
                 self.set_text_color(255, 255, 255)
-                self.set_line_width(1)
+                self.set_x(X)
                 w2 = self.get_string_width(" Overall Status ") + 3
-                self.cell(w2, 9, " Overall Status ", 1, 1, 'L', 1)
+                self.cell(w2, 9, " Overall Status ", 1, 0, 'L', 1)
 
-                X=10
+
                 OverallStatusText = "None"
 
                 self.set_fill_color(224, 224, 224)
@@ -203,7 +213,7 @@ for user in range(0,len(UserKeys)):
                 self.set_y(Y)
                 self.set_x(X)
                 self.set_draw_color(0, 80, 180)
-                if Project_Status == "Off Track":
+                if Project_Status   == "Off Track":
                     self.set_fill_color(255, 51, 51)
                     OverallStatusText = Project_Status
                 self.set_text_color(0, 0, 0)
@@ -230,6 +240,7 @@ for user in range(0,len(UserKeys)):
                 self.set_x(10)
                 Y = Y + 12
                 self.set_y(Y)
+                self.set_x(X-22)
                 self.set_font("Arial", size=8)
                 self.set_text_color(80, 90, 80)
                 self.cell(0, 0,"( "+OverallStatusText+" ) ", 0, 0, 'L')
@@ -267,7 +278,7 @@ for user in range(0,len(UserKeys)):
                     self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
                 except Exception as aa:
                     print(aa)
-                    self.image('img.png', 100, 25, 100, 90)
+                    self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
 
             def print_Data(self, num, Report_Title):
                 self.section_title(num, Report_Title)
