@@ -1,3 +1,4 @@
+from builtins import print
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import openpyxl
@@ -5,7 +6,7 @@ import pandas as pd
 import smtplib
 
 Email_Content="Good Evening !!!  Please don't forget to add report file for this week."
-FileLink="abc"
+FileLink="document/d/1n6lD3vMiOFaUved1Q_a6QsBoKKjFaKZJ8Ye8hrJL2z0/edit?usp=share_link"
 email_from = 'Test Automation Team'
 Email_From="neeraj1wayitsol@gmail.com"
 Email_Subject="Weekly Report Reminder Email"
@@ -65,7 +66,7 @@ for user in range(0,len(UserKeys)):
                             <p>Hi '''+UserKeys[user]+'''</p 
                             <p>''' + Email_Content + '''<br /></p>
                             <p>To know more how to add file to GitHub folder checkout the link given below <br /></p>
-                            <p>''' + "https://drive.google.com/drive/folders/" + FileLink + '''<br /><br /></p>
+                            <p>''' + "https://drive.google.com/" + FileLink + '''<br /><br /></p>
                             <p>Many Thanks <br/>Neeraj</p>
                         </body>
                     </html>
@@ -93,5 +94,6 @@ for user in range(0,len(UserKeys)):
         print("Reminder email sent for "+UserKeys[user])
         server.quit()
 
-    except:
+    except Exception as dd:
         print("Email not sent for "+UserKeys[user])
+        print(dd)
