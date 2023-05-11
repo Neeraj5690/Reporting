@@ -66,7 +66,7 @@ for user in range(0,len(UserKeys)):
                             <p>Hi '''+UserKeys[user]+'''</p 
                             <p>''' + Email_Content + '''<br /></p>
                             <p>To know more how to add file to GitHub folder checkout the link given below <br /></p>
-                            <p>''' + "https://drive.google.com/" + FileLink + '''<br /><br /></p>
+                            <p>''' + "https://docs.google.com/" + FileLink + '''<br /><br /></p>
                             <p>Many Thanks <br/>Neeraj</p>
                         </body>
                     </html>
