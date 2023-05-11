@@ -53,6 +53,7 @@ for user in range(0,len(UserKeys)):
                     print("Report_Name is: " + sheetx.cell(ix, 2).value)
                     FileDelete=sheetx.cell(ix, 2).value
                     Report_Name = sheetx.cell(ix, 2).value+'_'+date_str+'.pdf'
+                    Report_Name1 = sheetx.cell(ix, 2).value + '_' + date_str + '.pdf'
                 if sheetx.cell(ix, 1).value == "Email_From":
                     print("Email_From is: " + sheetx.cell(ix, 2).value)
                     Email_From = sheetx.cell(ix, 2).value
@@ -107,7 +108,11 @@ for user in range(0,len(UserKeys)):
         msg['From'] = email_from
         msg['To'] = ','.join(email_to)
         msg.attach(MIMEText(html, "html"))
-        attach_file_to_email(msg, Report_Name,Report_Name)
+        try:
+            attach_file_to_email(msg, Report_Name,Report_Name1)
+        except Exception as em:
+            FileLoc=UserKeys[user] + "_" + Report_Name1
+            attach_file_to_email(msg,FileLoc ,Report_Name1)
 
         #-----------------------------------------------------------------------
 
@@ -120,9 +125,10 @@ for user in range(0,len(UserKeys)):
         server=smtplib.SMTP_SSL('smtp.gmail.com',465)
         RandmStr=GoogleAppCode
         server.login(SenderEmail,RandmStr)
-        server.sendmail(email_from, email_to, email_string)
+        #server.sendmail(email_from, email_to, email_string)
         print("Test Report sent")
         server.quit()
+
         #--------------------------GDrive setup-----------------------------------
         gauth = GoogleAuth()
         gauth.LoadCredentialsFile("mycreds.txt")
@@ -136,11 +142,18 @@ for user in range(0,len(UserKeys)):
         drive = GoogleDrive(gauth)
         #--------------------------GDrive upload-----------------------------------
         upload_file_list = [Report_Name]
-        for upload_file in upload_file_list:
-            gfile = drive.CreateFile({'parents': [{'id': GoogleDriveFolderID}]})
-            gfile.SetContentFile(upload_file)
-            gfile.Upload()
-            #--------------------------------------------------------------------------
+        try:
+            for upload_file in upload_file_list:
+                gfile = drive.CreateFile({'parents': [{'id': GoogleDriveFolderID}]})
+                gfile.SetContentFile(upload_file)
+                gfile.Upload()
+        except:
+            upload_file_list = [FileLoc]
+            for upload_file in upload_file_list:
+                gfile = drive.CreateFile({'parents': [{'id': GoogleDriveFolderID}]})
+                gfile.SetContentFile(upload_file)
+                gfile.Upload()
+        #--------------------------------------------------------------------------
 
         sheetx.cell(row=1, column=5).value = date_str
         wbx.save(locx)

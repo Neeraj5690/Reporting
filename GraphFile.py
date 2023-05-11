@@ -193,10 +193,12 @@ for user in range(0,len(UserKeys)):
             SenderEmail = Email_From_NoFile
             date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
             msg = MIMEMultipart()
+            rcpt = [y] + [CC_Email]
             msg['Subject'] = Email_Subject_NoFile + " " + date_str
             msg['From'] = email_from_NoFile
+            msg['Cc'] = CC_Email
             msg['To'] = y
-            msg['CC'] = CC_Email
+
             msg.attach(MIMEText(html, "html"))
 
             # ------------------------To attach all in e-Mail-----------------------
@@ -207,10 +209,11 @@ for user in range(0,len(UserKeys)):
             server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
             RandmStr = GoogleAppCode_NoFile
             server.login(SenderEmail, RandmStr)
-            server.sendmail(email_from_NoFile, y, email_string)
+            server.sendmail(email_from_NoFile, rcpt, email_string)
             print("No Report email sent for " + UserKeys[user])
             server.quit()
 
-        except:
+        except Exception as aq:
             print("Email not sent for " + UserKeys[user])
+            print(aq)
 
