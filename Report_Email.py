@@ -43,6 +43,7 @@ for user in range(0,len(UserKeys)):
 
         # Reading GlobalData tab of Main Report Data File
         date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
+        date_strPDF = pd.Timestamp.today().strftime("%d-%B-%Y-%I-%M-%p")
         Sheetname = "GlobalData"
         sheetx = wbx[Sheetname]
         for ix in range(1, 200):
@@ -144,13 +145,13 @@ for user in range(0,len(UserKeys)):
         upload_file_list = [Report_Name]
         try:
             for upload_file in upload_file_list:
-                gfile = drive.CreateFile({'parents': [{'id': GoogleDriveFolderID}]})
+                gfile = drive.CreateFile({'title': date_strPDF,'parents': [{'id': GoogleDriveFolderID}]})
                 gfile.SetContentFile(upload_file)
                 gfile.Upload()
         except:
             upload_file_list = [FileLoc]
             for upload_file in upload_file_list:
-                gfile = drive.CreateFile({'parents': [{'id': GoogleDriveFolderID}]})
+                gfile = drive.CreateFile({'title': date_strPDF,'parents': [{'id': GoogleDriveFolderID}]})
                 gfile.SetContentFile(upload_file)
                 gfile.Upload()
         #--------------------------------------------------------------------------
