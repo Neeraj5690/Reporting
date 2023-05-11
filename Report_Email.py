@@ -126,7 +126,7 @@ for user in range(0,len(UserKeys)):
         server=smtplib.SMTP_SSL('smtp.gmail.com',465)
         RandmStr=GoogleAppCode
         server.login(SenderEmail,RandmStr)
-        #server.sendmail(email_from, email_to, email_string)
+        server.sendmail(email_from, email_to, email_string)
         print("Test Report sent")
         server.quit()
 
