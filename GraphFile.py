@@ -194,7 +194,7 @@ for user in range(0,len(UserKeys)):
             date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
             msg = MIMEMultipart()
             rcpt = [y] + [CC_Email]
-            msg['Subject'] = Email_Subject_NoFile + " " + date_str
+            msg['Subject'] = UserKeys[user]+ "-"+Email_Subject_NoFile + " " + date_str
             msg['From'] = email_from_NoFile
             msg['Cc'] = CC_Email
             msg['To'] = y
