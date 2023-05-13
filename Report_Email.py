@@ -1,6 +1,7 @@
 import os
 import smtplib
 import ssl
+import time
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -133,6 +134,7 @@ for user in range(0,len(UserKeys)):
         server.quit()
 
         #--------------------------GDrive setup-----------------------------------
+        time.sleep(4)
         gauth = GoogleAuth()
         gauth.LoadCredentialsFile("mycreds.txt")
         if gauth.credentials is None:
@@ -146,6 +148,7 @@ for user in range(0,len(UserKeys)):
         #--------------------------GDrive upload-----------------------------------
 
         try:
+            print(PdfFileLocation)
             upload_file_list = [PdfFileLocation]
             for upload_file in upload_file_list:
                 gfile = drive.CreateFile({'title': date_strPDF,'parents': [{'id': GoogleDriveFolderID}]})
