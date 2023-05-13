@@ -112,7 +112,9 @@ for user in range(0,len(UserKeys)):
         try:
             attach_file_to_email(msg, PdfFileLocation,Report_Name1)
         except Exception as em:
+            print("em is "+str(em))
             FileLoc=UserKeys[user] + "_" + Report_Name1
+            print(FileLoc)
             attach_file_to_email(msg,FileLoc ,Report_Name1)
 
         #-----------------------------------------------------------------------
@@ -126,7 +128,7 @@ for user in range(0,len(UserKeys)):
         server=smtplib.SMTP_SSL('smtp.gmail.com',465)
         RandmStr=GoogleAppCode
         server.login(SenderEmail,RandmStr)
-        server.sendmail(email_from, email_to, email_string)
+        #server.sendmail(email_from, email_to, email_string)
         print("Test Report sent")
         server.quit()
 
@@ -142,14 +144,16 @@ for user in range(0,len(UserKeys)):
         gauth.SaveCredentialsFile("mycreds.txt")
         drive = GoogleDrive(gauth)
         #--------------------------GDrive upload-----------------------------------
-        upload_file_list = [PdfFileLocation]
+
         try:
+            upload_file_list = [PdfFileLocation]
             for upload_file in upload_file_list:
                 gfile = drive.CreateFile({'title': date_strPDF,'parents': [{'id': GoogleDriveFolderID}]})
                 gfile.SetContentFile(upload_file)
                 gfile.Upload()
         except Exception as aad:
-            print(aad)
+            print("aad "+str(aad))
+            print(FileLoc)
             upload_file_list = [FileLoc]
             for upload_file in upload_file_list:
                 gfile = drive.CreateFile({'title': date_strPDF,'parents': [{'id': GoogleDriveFolderID}]})
