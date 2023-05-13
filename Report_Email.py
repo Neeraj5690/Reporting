@@ -136,14 +136,14 @@ for user in range(0,len(UserKeys)):
         #--------------------------GDrive setup-----------------------------------
         time.sleep(4)
         gauth = GoogleAuth()
-        gauth.LoadCredentialsFile("mycreds.txt")
+        gauth.LoadCredentialsFile("mycreds1.txt")
         if gauth.credentials is None:
             gauth.LocalWebserverAuth()
         elif gauth.access_token_expired:
             gauth.Refresh()
         else:
             gauth.Authorize()
-        gauth.SaveCredentialsFile("mycreds.txt")
+        gauth.SaveCredentialsFile("mycreds1.txt")
         drive = GoogleDrive(gauth)
         #--------------------------GDrive upload-----------------------------------
 
