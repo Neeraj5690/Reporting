@@ -86,7 +86,7 @@ for user in range(0,len(UserKeys)):
             </html>
             '''
 
-        Report_Name=home+'/.jenkins/workspace/CreateReport/'+UserKeys[user]+"_"+Report_Name
+        PdfFileLocation=home+'/.jenkins/workspace/CreateReport/'+UserKeys[user]+"_"+Report_Name
         def attach_file_to_email(msg, attach,Report_Name, extra_headers=None):
             with open(attach, "rb") as f:
                 file_attachment = MIMEApplication(f.read())
@@ -110,7 +110,7 @@ for user in range(0,len(UserKeys)):
         msg['To'] = ','.join(email_to)
         msg.attach(MIMEText(html, "html"))
         try:
-            attach_file_to_email(msg, Report_Name,Report_Name1)
+            attach_file_to_email(msg, PdfFileLocation,Report_Name1)
         except Exception as em:
             FileLoc=UserKeys[user] + "_" + Report_Name1
             attach_file_to_email(msg,FileLoc ,Report_Name1)
@@ -142,13 +142,14 @@ for user in range(0,len(UserKeys)):
         gauth.SaveCredentialsFile("mycreds.txt")
         drive = GoogleDrive(gauth)
         #--------------------------GDrive upload-----------------------------------
-        upload_file_list = [Report_Name]
+        upload_file_list = [PdfFileLocation]
         try:
             for upload_file in upload_file_list:
                 gfile = drive.CreateFile({'title': date_strPDF,'parents': [{'id': GoogleDriveFolderID}]})
                 gfile.SetContentFile(upload_file)
                 gfile.Upload()
-        except:
+        except Exception as aad:
+            print(aad)
             upload_file_list = [FileLoc]
             for upload_file in upload_file_list:
                 gfile = drive.CreateFile({'title': date_strPDF,'parents': [{'id': GoogleDriveFolderID}]})
