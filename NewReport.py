@@ -1,4 +1,6 @@
 import os
+import re
+
 import openpyxl
 from fpdf import FPDF, fpdf
 import datetime
@@ -106,7 +108,7 @@ for user in range(0,len(UserKeys)):
                 LastCell = len(ModuleName)
 
             for ix11 in range(2,LastCell+2 ):
-                # Do not change this - it will fetch all the module names
+                # Do not change this - it is fetching all the module names
                 if ix1==1:
                     if sheetx.cell(ix11, ix1).value == None:
                         break
@@ -118,8 +120,9 @@ for user in range(0,len(UserKeys)):
                         if ix11 == len(ModuleName)+2:
                             break
                         if sheetx.cell(ix11,ix1).value == None:
-                            Bugs_Count[ModuleName[ix11 - 2]] = "0"
-                            Bugs_CountList.append("0")
+                            #print("sheetx.cell(ix11,ix1).value -> "+sheetx.cell(ix11,ix1).value)
+                            Bugs_Count[ModuleName[ix11 - 2]] = -1
+                            Bugs_CountList.append(0)
                         else:
                             Bugs_Count[ModuleName[ix11 - 2]] = sheetx.cell(ix11,ix1).value
                             Bugs_CountList.append(sheetx.cell(ix11,ix1).value)
@@ -140,16 +143,17 @@ for user in range(0,len(UserKeys)):
 
         print("Modules are "+str(ModuleName))
         print("Bugs_Count "+str(Bugs_Count))
+        print("Bugs_CountList " + str(Bugs_CountList))
+        print("Sum of Bugs_CountList " + str(sum(Bugs_CountList)))
         MaxBugs = max(Bugs_Count, key=Bugs_Count.get)
         print("MaxBugs "+str(MaxBugs))
-        print("Bugs_CountList "+str(Bugs_CountList))
-        print("Sum of Bugs_CountList "+str(sum(Bugs_CountList)))
         print("Bugs_Links are "+str(Bugs_Links))
         print("Comments are "+str(Comment))
 
         class PDF(FPDF):
             def header(self):
                 self.image('Logo.png', 10, 8, 33)
+                self.add_font('Arial', '', 'C:\Windows\Fonts\Arial.ttf', uni=True)
                 self.set_font('Arial', 'B', 15)
                 self.set_y(16)
                 w = self.get_string_width(Report_Title+": "+Project_Name) + 6
@@ -282,12 +286,25 @@ for user in range(0,len(UserKeys)):
                 if BugCount_show == "No":
                     pass
                 elif BugCount_show == "Yes":
-                    self.cell(0, 10, 'Bugs Count : ' + str(Bugs_Count[label]), 0, 1)
-                    self.set_text_color(0, 0, 255)
-                    self.cell(0, 6, 'Link : ' + str(Bugs_Links[label]), 0, 1)
-                    self.set_text_color(0, 0, 0)
+                    if str(Bugs_Count[label]) == "-1":
+                        pass
+                        #self.cell(0, 10, 'Bugs Count : ', 0, 1)
+                    else:
+                        self.cell(0, 10, 'Bugs Count : ' + str(Bugs_Count[label]), 0, 1)
 
-                self.multi_cell(0, 6, 'Comment : ' + str(Comment[label]), 0)
+                self.set_text_color(0, 0, 255)
+                if str(Bugs_Links[label]) == "None":
+                    pass
+                else:
+                    self.cell(0, 6, 'Link : ' + str(Bugs_Links[label]), 0, 1)
+                self.set_text_color(0, 0, 0)
+
+                self.cell(0, 5, 'Details : ', 0, 1)
+                self.set_font('Arial', '', 9)
+                if str(Comment[label]) == "None":
+                    pass
+                else:
+                    self.multi_cell(0, 5, str(Comment[label]), 0)
                 self.ln(5)
 
             def Graph(self):
