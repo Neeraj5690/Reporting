@@ -41,6 +41,10 @@ for ix in range(1, 200):
             if sheetx.cell(ix, 1).value == "GoogleAppCode":
                 print("GoogleAppCode is: "+sheetx.cell(ix, 2).value)
                 GoogleAppCode=sheetx.cell(ix, 2).value
+            if sheetx.cell(ix, 1).value == "NewVersion":
+                print("NewVersion is: " + sheetx.cell(ix, 2).value)
+                NewVersion = sheetx.cell(ix, 2).value
+                NewVersionValue = sheetx.cell(ix, 3).value
         except Exception as ad:
             print("No Data found "+str(ad))
 
@@ -60,18 +64,33 @@ UserKeys=list(User_Name_Sheet.keys())
 #print(UserKeys)
 for user in range(0,len(UserKeys)):
     try:
-        html = '''
-                    <html>
-                        <body>
-                            <p>Hi '''+UserKeys[user]+'''</p 
-                            <p>''' + Email_Content + '''<br /></p>
-                            <p>To know more how to add file to GitHub folder checkout the link given below <br /></p>
-                            <p>''' + "https://docs.google.com/" + FileLink + '''<br /><br /></p>
-                            <p>Many Thanks <br/>Neeraj</p>
-                        </body>
-                    </html>
-                    '''
-
+        if NewVersion == "No":
+            html = '''
+                        <html>
+                            <body>
+                                <p>Hi '''+UserKeys[user]+'''</p 
+                                <p>Good Evening !!!  </p
+                                <p>''' + Email_Content + '''<br /></p>
+                                <p>To know more how to add file to GitHub folder checkout the link given below <br /></p>
+                                <p>''' + "https://docs.google.com/" + FileLink + '''<br /><br /></p>
+                                <p>Many Thanks <br/>Neeraj</p>
+                            </body>
+                        </html>
+                        '''
+        elif NewVersion == "Yes":
+            html = '''
+                                    <html>
+                                        <body>
+                                            <p>Hi ''' + UserKeys[user] + '''</p 
+                                            <p>Good Evening !!!  </p
+                                            <p>New version released. To check more please go to the link: ''' + NewVersionValue + '''<br /></p
+                                            <p>''' + Email_Content + '''<br /></p>
+                                            <p>To know more how to add file to GitHub folder checkout the link given below <br /></p>
+                                            <p>''' + "https://docs.google.com/" + FileLink + '''<br /><br /></p>
+                                            <p>Many Thanks <br/>Neeraj</p>
+                                        </body>
+                                    </html>
+                                    '''
         y = User_Name_Email[UserKeys[user]]
         SenderEmail = Email_From
         date_str = pd.Timestamp.today().strftime('%m-%d-%Y')

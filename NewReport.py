@@ -9,7 +9,7 @@ home = str(Path.home())
 home = home.replace(os.sep, '/')
 print(home)
 
-version = " version: 1.0 "
+version = " version: 1.01 "
 
 date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
 ct = datetime.datetime.now().strftime("%d_%B_%Y_%I_%M%p")
@@ -70,6 +70,9 @@ for user in range(0,len(UserKeys)):
                 if sheetx.cell(ix, 1).value == "BarGraph_show":
                     print("BarGraph_show is: "+sheetx.cell(ix, 2).value)
                     BarGraph_show=sheetx.cell(ix, 2).value
+                if sheetx.cell(ix, 1).value == "BugCount_show":
+                    print("BugCount_show is: "+sheetx.cell(ix, 2).value)
+                    BugCount_show=sheetx.cell(ix, 2).value
 
         # Reading Column Name data
         Sheetname="ModulesData"
@@ -165,9 +168,17 @@ for user in range(0,len(UserKeys)):
                 self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
 
             def section_counts(self):
+                MaxBugs="N/A"
+                if BugCount_show == "No":
+                    SumBugCount = "N/A"
+                    MaxBugs = "N/A"
+                else:
+                    SumBugCount = str(sum(Bugs_CountList))
+                    MaxBugs = max(Bugs_Count, key=Bugs_Count.get)
+
                 self.ln(17)
                 self.set_font("Arial", size=12)
-                w1 = self.get_string_width(" Total Bugs : "+str(sum(Bugs_CountList))) + 3
+                w1 = self.get_string_width(" Total Bugs : " + SumBugCount) + 3
                 X = (70 - w1) / 2
                 self.set_x(X)
 
@@ -178,7 +189,7 @@ for user in range(0,len(UserKeys)):
                 self.set_fill_color(198, 224, 228)
                 self.set_text_color(0, 0, 0)
                 self.set_line_width(1)
-                self.cell(w1, 9, " Total bugs : "+str(sum(Bugs_CountList)), 1, 1, 'L', 1)
+                self.cell(w1, 9, " Total bugs : "+SumBugCount, 1, 1, 'L', 1)
 
                 Y=Y+multplyVar
                 self.set_y(Y)
@@ -247,10 +258,14 @@ for user in range(0,len(UserKeys)):
 
                 self.ln(15)
                 print("Y is "+str(Y))
-                if Y<=120:
-                    Y=120
-                else:
-                    Y = Y + multplyVar+15
+                if BarGraph_show=="Yes":
+                    if Y <= 120:
+                        Y = 120
+                    else:
+                        Y = Y + multplyVar + 15
+                elif BarGraph_show=="No":
+                    Y = 80
+
                 self.set_y(Y)
                 self.set_font('Arial', 'B', 12)
                 self.set_text_color(0, 0, 0)
@@ -263,10 +278,15 @@ for user in range(0,len(UserKeys)):
                 self.set_text_color(0, 0, 0)
                 self.set_fill_color(200, 220, 255)
                 self.cell(0, 10, 'Module %d : %s' % (num, label), 0, 1, 'L', 1)
-                self.cell(0, 10, 'Bugs Count : '+str(Bugs_Count[label]), 0, 1)
-                self.set_text_color(0,0,255)
-                self.cell(0, 6, 'Link : ' + str(Bugs_Links[label]), 0, 1)
-                self.set_text_color(0, 0, 0)
+
+                if BugCount_show == "No":
+                    pass
+                elif BugCount_show == "Yes":
+                    self.cell(0, 10, 'Bugs Count : ' + str(Bugs_Count[label]), 0, 1)
+                    self.set_text_color(0, 0, 255)
+                    self.cell(0, 6, 'Link : ' + str(Bugs_Links[label]), 0, 1)
+                    self.set_text_color(0, 0, 0)
+
                 self.multi_cell(0, 6, 'Comment : ' + str(Comment[label]), 0)
                 self.ln(5)
 
@@ -277,8 +297,11 @@ for user in range(0,len(UserKeys)):
                 try:
                     self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
                 except Exception as aa:
-                    print(aa)
-                    self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+                    print("aa "+str(aa))
+                    try:
+                        self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+                    except Exception as av:
+                        print("av "+str(av))
 
             def print_Data(self, num, Report_Title):
                 self.section_title(num, Report_Title)
