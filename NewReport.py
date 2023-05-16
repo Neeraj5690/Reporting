@@ -299,7 +299,7 @@ for user in range(0,len(UserKeys)):
                     self.cell(0, 6, 'Link : ' + str(Bugs_Links[label]), 0, 1)
                 self.set_text_color(0, 0, 0)
 
-                self.cell(0, 5, 'Details : ', 0, 1)
+                self.cell(0, 7, 'Details : ', 0, 1)
                 self.set_font('Arial', '', 9)
                 if str(Comment[label]) == "None":
                     pass
