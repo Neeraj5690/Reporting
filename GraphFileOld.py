@@ -1,5 +1,3 @@
-from builtins import print
-
 import matplotlib.pyplot as plt
 import openpyxl
 import pandas as pd
@@ -58,15 +56,14 @@ for user in range(0,len(UserKeys)):
                 if sheetx.cell(ix, 1).value == "Project_Name":
                     print("Project Name is: "+sheetx.cell(ix, 2).value)
                     Project_Name=sheetx.cell(ix, 2).value
+
                 if sheetx.cell(ix, 1).value == "BarGraph_color":
                     BarGraph_color=sheetx.cell(ix, 2).value
                     print("BarGraph_color is "+BarGraph_color)
+
                 if sheetx.cell(ix, 1).value == "BarGraph_show":
                     BarGraph_show=sheetx.cell(ix, 2).value
                     print("BarGraph_show is "+BarGraph_show)
-                if sheetx.cell(ix, 1).value == "BarGraph_Type":
-                    BarGraph_Type=sheetx.cell(ix, 2).value
-                    print("BarGraph_Type is "+BarGraph_Type)
 
         Column_Name = []
         ModuleName = []
@@ -77,6 +74,7 @@ for user in range(0,len(UserKeys)):
         if BarGraph_show == "Yes":
             Sheetname="ModulesData"
             sheetx = wbx[Sheetname]
+
             for ix1 in range(2, 200):
                 if sheetx.cell(ix1, 1).value == None:
                     break
@@ -108,72 +106,33 @@ for user in range(0,len(UserKeys)):
             # Creating Module Vs Bugs Count Bar Graph
             print("ModuleName "+str(ModuleName))
             print("Bugs_CountList "+str(Bugs_CountList))
-            Bugs_CountListSum=sum(Bugs_CountList)
-            print(Bugs_CountListSum)
+
             print(data)
+            data = {'modules': ModuleName,
+                'bugs': Bugs_CountList
+                }
+            print(data)
+            df = pd.DataFrame(data)
+            colors = [BarGraph_color]
+            print(df)
+            try:
+                plt.bar( df['modules'],df['bugs'], color=colors)
+            except:
+                print("Color is invalid")
+                colors = ['blue']
+                plt.bar(df['modules'], df['bugs'], color=colors)
 
-            if BarGraph_Type == "BarGraph":
-                data = {'modules': ModuleName,
-                    'bugs': Bugs_CountList
-                    }
-                print(data)
-                df = pd.DataFrame(data)
-                colors = [BarGraph_color]
-                print(df)
-                try:
-                    plt.bar( df['modules'],df['bugs'], color=colors)
-                except:
-                    print("Color is invalid")
-                    colors = ['blue']
-                    plt.bar(df['modules'], df['bugs'], color=colors)
+            ax = plt.gca()
+            plt.draw()
+            ax.set_xticklabels(df['modules'] , rotation = 55,fontsize=8)
 
-                ax = plt.gca()
-                plt.draw()
-                ax.set_xticklabels(df['modules'] , rotation = 55,fontsize=8)
+            plt.title('Module Vs Bugs Count', fontsize=10)
+            #plt.xlabel('Modules', fontsize=8)
+            plt.ylabel('Bugs', fontsize=8)
+            plt.grid(False)
+            plt.gcf().set_size_inches(5, 7)
+            plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=150)
 
-                plt.title('Modules Vs Bugs Count', fontsize=10)
-                #plt.xlabel('Modules', fontsize=8)
-                plt.ylabel('Bugs', fontsize=8)
-                plt.grid(False)
-                plt.gcf().set_size_inches(5, 7)
-                if Bugs_CountListSum == 0:
-                    print("Bugs_CountListSumCount is 0")
-                else:
-                    plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=150)
-            elif BarGraph_Type == "PieChart":
-                import numpy as np
-                import matplotlib.pyplot as plt
-
-                fig, ax = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
-                Bugs_CountList1=Bugs_CountList
-                for ix2 in range(0, len(Bugs_CountList)):
-                    if Bugs_CountList[ix2] == 0:
-                        print(ix2)
-                        try:
-                             ModuleName[ix2]=0
-                        except:
-                            pass
-                Bugs_CountList = [elem for elem in Bugs_CountList if elem != 0]
-                ModuleName = [elem for elem in ModuleName if elem != 0]
-                print(ModuleName)
-                print(Bugs_CountList)
-
-                data = Bugs_CountList
-                def func(pct, allvals):
-                    absolute = int(pct / 100. * np.sum(allvals))
-                    return "{:.1f}%\n({:d})".format(pct, absolute)
-                wedges, texts, autotexts = ax.pie(data, autopct=lambda pct: func(pct, data),
-                                                  textprops=dict(color="w"))
-                ax.legend(wedges, ModuleName,
-                          title="Modules",
-                          loc="center left",
-                          bbox_to_anchor=(1, 0, 0.5, 1))
-                plt.setp(autotexts, size=8, weight="bold")
-                ax.set_title("Modules Vs Bugs Count")
-                if Bugs_CountListSum == 0:
-                    print("Bugs_CountListSumCount is 0")
-                else:
-                    plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=150)
         else:
             print("BarGraph_show is " +BarGraph_show)
         Column_Name.clear()
@@ -186,9 +145,8 @@ for user in range(0,len(UserKeys)):
         plt.close()
         print("Cleared data " + str(user) + " for user " + UserKeys[user])
 
-    except Exception as pp:
+    except:
         print("Report File not found for "+UserKeys[user])
-        print(pp)
 
         ExcelFileName = "UserData"
         loc = (ExcelFileName + '.xlsx')
@@ -251,7 +209,7 @@ for user in range(0,len(UserKeys)):
             server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
             RandmStr = GoogleAppCode_NoFile
             server.login(SenderEmail, RandmStr)
-            #server.sendmail(email_from_NoFile, rcpt, email_string)
+            server.sendmail(email_from_NoFile, rcpt, email_string)
             print("No Report email sent for " + UserKeys[user])
             server.quit()
 
