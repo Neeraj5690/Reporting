@@ -2,6 +2,7 @@ import os
 import re
 
 import openpyxl
+from PIL.Image import Image
 from fpdf import FPDF, fpdf
 import datetime
 import pandas as pd
@@ -72,6 +73,9 @@ for user in range(0,len(UserKeys)):
                 if sheetx.cell(ix, 1).value == "BarGraph_show":
                     print("BarGraph_show is: "+sheetx.cell(ix, 2).value)
                     BarGraph_show=sheetx.cell(ix, 2).value
+                if sheetx.cell(ix, 1).value == "BarGraph_Type":
+                    print("BarGraph_Type is: "+sheetx.cell(ix, 2).value)
+                    BarGraph_Type=sheetx.cell(ix, 2).value
                 if sheetx.cell(ix, 1).value == "BugCount_show":
                     print("BugCount_show is: "+sheetx.cell(ix, 2).value)
                     BugCount_show=sheetx.cell(ix, 2).value
@@ -177,8 +181,12 @@ for user in range(0,len(UserKeys)):
                     SumBugCount = "N/A"
                     MaxBugs = "N/A"
                 else:
-                    SumBugCount = str(sum(Bugs_CountList))
-                    MaxBugs = max(Bugs_Count, key=Bugs_Count.get)
+                    if sum(Bugs_CountList) == 0:
+                        SumBugCount = "N/A"
+                        MaxBugs = "N/A"
+                    else:
+                        SumBugCount = str(sum(Bugs_CountList))
+                        MaxBugs = max(Bugs_Count, key=Bugs_Count.get)
 
                 self.ln(17)
                 self.set_font("Arial", size=12)
@@ -312,13 +320,24 @@ for user in range(0,len(UserKeys)):
                 self.set_text_color(80, 90, 80)
                 self.cell(0, 1, version +"    Report Date: "+ctReportHeader, 0, 0, 'L')
                 try:
-                    self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+                    if BarGraph_Type == "BarGraph":
+                        self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+                    elif BarGraph_Type == "PieChart":
+                        self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 80, 40, 120,60)
                 except Exception as aa:
                     print("aa "+str(aa))
                     try:
-                        self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+                        if BarGraph_Type == "BarGraph":
+                            self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
+                        elif BarGraph_Type == "PieChart":
+                            self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 80, 40, 120,60)
                     except Exception as av:
                         print("av "+str(av))
+                        if BarGraph_show == "Yes":
+                            try:
+                                self.image(home + '/.jenkins/workspace/Create_Graph/' +'NoData.jpg', 100, 25, 100, 90)
+                            except :
+                                self.image('NoData.jpg', 100, 25, 100, 90)
 
             def print_Data(self, num, Report_Title):
                 self.section_title(num, Report_Title)

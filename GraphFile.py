@@ -139,7 +139,7 @@ for user in range(0,len(UserKeys)):
                 if Bugs_CountListSum == 0:
                     print("Bugs_CountListSumCount is 0")
                 else:
-                    plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=150)
+                    plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=500)
             elif BarGraph_Type == "PieChart":
                 import numpy as np
                 import matplotlib.pyplot as plt
@@ -173,7 +173,8 @@ for user in range(0,len(UserKeys)):
                 if Bugs_CountListSum == 0:
                     print("Bugs_CountListSumCount is 0")
                 else:
-                    plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=150)
+                    #plt.gcf().set_size_inches(11, 10)
+                    plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=500)
         else:
             print("BarGraph_show is " +BarGraph_show)
         Column_Name.clear()
