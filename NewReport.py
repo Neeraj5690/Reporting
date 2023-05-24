@@ -1,8 +1,5 @@
 import os
-import re
-
 import openpyxl
-from PIL.Image import Image
 from fpdf import FPDF, fpdf
 import datetime
 import pandas as pd
@@ -12,7 +9,7 @@ home = str(Path.home())
 home = home.replace(os.sep, '/')
 print(home)
 
-version = " version: 1.01 "
+version = " version: 1.02 "
 
 date_str = pd.Timestamp.today().strftime('%m-%d-%Y')
 ct = datetime.datetime.now().strftime("%d_%B_%Y_%I_%M%p")
@@ -70,12 +67,12 @@ for user in range(0,len(UserKeys)):
                 if sheetx.cell(ix, 1).value == "Project_Status":
                     print("Project_Status is: "+sheetx.cell(ix, 2).value)
                     Project_Status=sheetx.cell(ix, 2).value
-                if sheetx.cell(ix, 1).value == "BarGraph_show":
-                    print("BarGraph_show is: "+sheetx.cell(ix, 2).value)
-                    BarGraph_show=sheetx.cell(ix, 2).value
-                if sheetx.cell(ix, 1).value == "BarGraph_Type":
-                    print("BarGraph_Type is: "+sheetx.cell(ix, 2).value)
-                    BarGraph_Type=sheetx.cell(ix, 2).value
+                if sheetx.cell(ix, 1).value == "Graph_show":
+                    print("Graph_show is: "+sheetx.cell(ix, 2).value)
+                    Graph_show=sheetx.cell(ix, 2).value
+                if sheetx.cell(ix, 1).value == "Graph_Type":
+                    print("Graph_Type is: "+sheetx.cell(ix, 2).value)
+                    Graph_Type=sheetx.cell(ix, 2).value
                 if sheetx.cell(ix, 1).value == "BugCount_show":
                     print("BugCount_show is: "+sheetx.cell(ix, 2).value)
                     BugCount_show=sheetx.cell(ix, 2).value
@@ -212,11 +209,11 @@ for user in range(0,len(UserKeys)):
                 w2 = self.get_string_width(" Max bugs from : "+MaxBugs) + 3
                 self.cell(w2, 9, " Max bugs from : "+MaxBugs, 1, 1, 'L', 1)
 
-                if BarGraph_show=="Yes":
+                if Graph_show=="Yes":
                     Y = Y + multplyVar+17
                     self.set_y(Y)
                     X = 10
-                elif BarGraph_show=="No":
+                elif Graph_show=="No":
                     X = 120
                     Y=35
                     self.set_x(X)
@@ -270,12 +267,12 @@ for user in range(0,len(UserKeys)):
 
                 self.ln(15)
                 print("Y is "+str(Y))
-                if BarGraph_show=="Yes":
+                if Graph_show=="Yes":
                     if Y <= 120:
                         Y = 120
                     else:
                         Y = Y + multplyVar + 15
-                elif BarGraph_show=="No":
+                elif Graph_show=="No":
                     Y = 80
 
                 self.set_y(Y)
@@ -320,20 +317,20 @@ for user in range(0,len(UserKeys)):
                 self.set_text_color(80, 90, 80)
                 self.cell(0, 1, version +"    Report Date: "+ctReportHeader, 0, 0, 'L')
                 try:
-                    if BarGraph_Type == "BarGraph":
+                    if Graph_Type == "BarGraph":
                         self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
-                    elif BarGraph_Type == "PieChart":
+                    elif Graph_Type == "PieChart":
                         self.image(home+'/.jenkins/workspace/Create_Graph/'+UserKeys[user]+'_ModuleVsBugsCount.jpg', 80, 40, 120,60)
                 except Exception as aa:
                     print("aa "+str(aa))
                     try:
-                        if BarGraph_Type == "BarGraph":
+                        if Graph_Type == "BarGraph":
                             self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 100, 25, 100,90)
-                        elif BarGraph_Type == "PieChart":
+                        elif Graph_Type == "PieChart":
                             self.image(UserKeys[user]+'_ModuleVsBugsCount.jpg', 80, 40, 120,60)
                     except Exception as av:
                         print("av "+str(av))
-                        if BarGraph_show == "Yes":
+                        if Graph_show == "Yes":
                             try:
                                 self.image(home + '/.jenkins/workspace/Create_Graph/' +'NoData.jpg', 100, 25, 100, 90)
                             except :

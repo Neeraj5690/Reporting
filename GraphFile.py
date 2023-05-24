@@ -37,7 +37,7 @@ print(UserKeys)
 ModuleName=None
 for user in range(0,len(UserKeys)):
     Project_Name = "QA"
-    BarGraph_show = "No"
+    Graph_show = "No"
     BarGraph_color = "blue"
 
     print("---------------------------------------------------------")
@@ -61,12 +61,12 @@ for user in range(0,len(UserKeys)):
                 if sheetx.cell(ix, 1).value == "BarGraph_color":
                     BarGraph_color=sheetx.cell(ix, 2).value
                     print("BarGraph_color is "+BarGraph_color)
-                if sheetx.cell(ix, 1).value == "BarGraph_show":
-                    BarGraph_show=sheetx.cell(ix, 2).value
-                    print("BarGraph_show is "+BarGraph_show)
-                if sheetx.cell(ix, 1).value == "BarGraph_Type":
-                    BarGraph_Type=sheetx.cell(ix, 2).value
-                    print("BarGraph_Type is "+BarGraph_Type)
+                if sheetx.cell(ix, 1).value == "Graph_show":
+                    Graph_show=sheetx.cell(ix, 2).value
+                    print("Graph_show is "+Graph_show)
+                if sheetx.cell(ix, 1).value == "Graph_Type":
+                    Graph_Type=sheetx.cell(ix, 2).value
+                    print("Graph_Type is "+Graph_Type)
 
         Column_Name = []
         ModuleName = []
@@ -74,7 +74,7 @@ for user in range(0,len(UserKeys)):
         Bugs_CountList = []
         data = {}
 
-        if BarGraph_show == "Yes":
+        if Graph_show == "Yes":
             Sheetname="ModulesData"
             sheetx = wbx[Sheetname]
             for ix1 in range(2, 200):
@@ -112,7 +112,7 @@ for user in range(0,len(UserKeys)):
             print(Bugs_CountListSum)
             print(data)
 
-            if BarGraph_Type == "BarGraph":
+            if Graph_Type == "BarGraph":
                 data = {'modules': ModuleName,
                     'bugs': Bugs_CountList
                     }
@@ -140,7 +140,7 @@ for user in range(0,len(UserKeys)):
                     print("Bugs_CountListSumCount is 0")
                 else:
                     plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=500)
-            elif BarGraph_Type == "PieChart":
+            elif Graph_Type == "PieChart":
                 import numpy as np
                 import matplotlib.pyplot as plt
 
@@ -176,7 +176,7 @@ for user in range(0,len(UserKeys)):
                     #plt.gcf().set_size_inches(11, 10)
                     plt.savefig(UserKeys[user]+'_ModuleVsBugsCount.jpg', dpi=500)
         else:
-            print("BarGraph_show is " +BarGraph_show)
+            print("Graph_show is " +Graph_show)
         Column_Name.clear()
         ModuleName.clear()
 
