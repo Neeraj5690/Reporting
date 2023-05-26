@@ -252,7 +252,7 @@ for user in range(0,len(UserKeys)):
             server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
             RandmStr = GoogleAppCode_NoFile
             server.login(SenderEmail, RandmStr)
-            #server.sendmail(email_from_NoFile, rcpt, email_string)
+            server.sendmail(email_from_NoFile, rcpt, email_string)
             print("No Report email sent for " + UserKeys[user])
             server.quit()
 
